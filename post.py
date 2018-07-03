@@ -25,13 +25,13 @@ else:
 
 if args.header and os.path.isfile(args.header):
     with open(args.header) as f:
-        header = f.read()
+        header = json.loads(f.read())
 else:
     header = json.loads(args.header) if args.header else None
 
 r = requests.post(args.url, data=data, headers=header)
 
-print('Response: {}'.format(r.status_code))
-
 if r.text:
-    print(r.text)
+    print('{}\n'.format(r.text))
+
+print('Response: {}'.format(r.status_code))
