@@ -15,6 +15,10 @@ parser.add_argument(
     'header', help='JSON to post as request header (alternatively, a file to '
     'read containing header JSON).', nargs='?'
 )
+parser.add_argument(
+    '-j', '--json', help='Helpfully adds {"Content-Type": "application/json"} '
+    'to the header.', action='store_true'
+)
 args = parser.parse_args()
 
 if os.path.isfile(args.data):
@@ -27,7 +31,10 @@ if args.header and os.path.isfile(args.header):
     with open(args.header) as f:
         header = json.loads(f.read())
 else:
-    header = json.loads(args.header) if args.header else None
+    header = json.loads(args.header) if args.header else {}
+
+if args.json:
+    header['Content-Type'] = 'application/json'
 
 r = requests.post(args.url, data=data, headers=header)
 
