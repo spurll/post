@@ -19,6 +19,10 @@ parser.add_argument(
     '-j', '--json', help='Helpfully adds {"Content-Type": "application/json"} '
     'to the header.', action='store_true'
 )
+parser.add_argument(
+    '-n', '--no-verify', help='Skips SSL certificate verification.',
+    action='store_true'
+)
 args = parser.parse_args()
 
 if os.path.isfile(args.data):
@@ -36,7 +40,9 @@ else:
 if args.json:
     header['Content-Type'] = 'application/json'
 
-r = requests.post(args.url, data=data, headers=header)
+r = requests.post(
+    args.url, data=data, headers=header, verify=not args.no_verify
+)
 
 if r.text:
     print('{}\n'.format(r.text))
