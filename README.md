@@ -16,14 +16,33 @@ Python command-line utility that issues HTTP POST commands.
 
 The response code and anything else returned by the server will be sent to the console.
 
+## Optional Flags
+
+* `-j`/`--json`: Helpfully adds `{"Content-Type": "application/json"}` to the header
+* `-n`/`--no-verify`: Skips SSL certificate verification
+
+# Examples
+
 ```sh
-$ ./post.py http://example.com/real_endpoint test.json
+$ ./post.py https://example.com/real_endpoint test.json
 Response: 200
 ```
 
 ```sh
-$ ./post.py http://example.com/fake_endpoint test.json
+$ ./post.py https://example.com/fake_endpoint test.json
 Response: 404
+```
+
+```sh
+$ ./post.py https://example.com/reset-password '{"username": "your.email@example.com"}' -j
+Response: 204
+```
+
+The last example above is equivalent to:
+
+```sh
+$ ./post.py https://example.com/reset-password '{"username": "your.email@example.com"}' '{"Content-Type": "application/json"}'
+Response: 204
 ```
 
 # License Information
