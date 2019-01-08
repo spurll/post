@@ -21,6 +21,10 @@ The response code and anything else returned by the server will be sent to the c
 * `-j`/`--json`: Helpfully adds `{"Content-Type": "application/json"}` to the header
 * `-n`/`--no-verify`: Skips SSL certificate verification
 
+## Setup
+
+You'll need to install `requests`.
+
 # Examples
 
 ```sh
