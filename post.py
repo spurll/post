@@ -61,8 +61,11 @@ if args.header and os.path.isfile(args.header):
 else:
     header = json.loads(args.header) if args.header else {}
 
+# Provide a default User-Agent if none was supplied
+header['User-Agent'] = header.get('User-Agent') or 'POST Script'
+
 if args.json:
-    header['Content-Type'] = 'application/json'
+    header['Content-type'] = 'application/json'
 
 request = requests.put if args.put \
     else requests.get if args.get \
